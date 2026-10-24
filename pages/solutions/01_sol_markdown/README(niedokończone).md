@@ -67,7 +67,7 @@ $$
 $$
 
 ## Obrazek z wykresem:
-![Wykres] (files/ wykres.png)
+![Wykres] (pages/files/wykres.png)
 
 ## Kod Pythona
 
