@@ -1,46 +1,78 @@
-# Tytuł
+# Zadania z Markdowna
 
-sehbsjdfb;j ndszjkbjdfv
+## Zadanie z podtytułem.
 
-# Tytuł 2
+## Zadanie z tekstem pochylonym, pogrubionym i przekreślonym.
 
-kjndnf
+Oto i one: *tekst pochylony*, **tekst pogrubiony**, ~~tekst przekreślony~~.
 
-## Podtytul1
-jefbkjebb kjhghg ghjg **ghjhh**
+## Lista numerowana:
 
-## Podtytu2
-hsdfg hjhdskfkh kjkhf *gvgvvnb* jgsgdu jahsjk.
+1. Punkt pierwszy:
+   1. podpunkt 1,
+   2. podpunkt 2.
+2. Punkt drugi:
+   1. podpunkt 3,
+   2. podpunkt 4.
+3. Punkt trzeci.
 
-# Tytul
+## Lista punktowa:
+   Owa lista:
+   - punkt 1,
+   - punkt 2,
+   - punkt 3,
+   - punkt 4.
 
-jkba aujhxjka iujxsba ~~hjkshd~~
+## Checklista
 
-1. JKK
-   1. jdj
-   2. jhfdj
-2. kdjf
-   1. kbf
-   2. dskf
-3. Hhjfd
-
-   # Tytul
-   HSjahxh:
-   - HVG
-   - HGJg
-   - Hjk
-   - HJkhjk
   
-     - [ ] jhdfjke
-     - [ ] jndjkn
-     - [ ] kdsjflks
-     - [x] kjlsdj
+     - [ ] punkt 1,
+     - [ ] punkt 2,
+     - [ ] punkt 3,
+     - [x] punkt 4 z zaznaczeniem.
+
+   ## Tabela
 
 |  AAA | BBBB | CCCCCC |
 |:----:| :---:|:------:|
 | 123  | 1234 | 321    |
 | 32123|343412|22222   |
 
-HFGfv hgvfg dsa  http://colab.research.google.com
+##Link
 
-sdhjfs  $A^2= \frac{bx^3-12y}\{by^3-12x}+xy$ lujwhsn $\frac{\pi}{2}=\sin(\frac{n}{4}+2)$
+ http://colab.research.google.com
+
+## Wzory matematyczne w tekście
+
+Tutaj np. wzór na zmianę entropii gazu doskonałego: $\Delta S=nC_v\ln\left(\frac{T_2}{T_1}\right) + nr\ln\left(\frac{V_2}{V_1}\right)$, a tu z kolei na rozpad promieniotwórczy: $N(t)=N_0e^{-\lambda t}$, a tu równanie interferencji na dwóch szczelinach: $I(\theta)=I_{\max}\cos^2\left(\frac{\pi d\sin(\theta)}{\lambda}\right)$.
+
+## Wzory matematyczne jako osobny wycentrowany blok:
+
+Równanie Shrödingera:
+
+$$
+i\hbar\frac{\partial}{\partial t}\Psi(\mathbf{r},{t})=\left[-\frac{\hbar^2}{2m}\nabla^2 + V(\mathbf {r},{t})\right]\Psi( \mathbf{r},{t})
+$$
+
+Funkcja falowa cząstki w nieskończonej studni potencjału:
+
+$$
+\psi_n(x)=\sqrt{\frac{2}{L}}\sin\left(\frac{n\pi x}{L}\right), n=1,2,3,...
+$$
+
+Zasada nieoznaczoności Heisenberga:
+
+$$
+\Delta x \Delta p_x \geq\frac{\hbar}{2}
+$$
+
+## Obrazek z wykresem:
+![Wykres] (files/ wykres.png)
+
+## Kod Pythona
+
+
+
+
+
+
