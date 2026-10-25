@@ -30,14 +30,14 @@ Oto i one: *tekst pochylony*, **tekst pogrubiony**, ~~tekst przekreślony~~.
  - [ ]  punkt 3,
  - [x] punkt 4 z zaznaczeniem.
 
-   ## Tabela
+## Tabela
 
 |  AAA | BBBB | CCCCCC |
 |:----:| :---:|:------:|
 | 123  | 1234 | 321    |
 | 32123|343412|22222   |
 
-##Link
+## Link
 
  http://colab.research.google.com
 
