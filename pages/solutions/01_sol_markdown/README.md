@@ -25,11 +25,10 @@ Oto i one: *tekst pochylony*, **tekst pogrubiony**, ~~tekst przekreślony~~.
 
 ## Checklista
 
-  
-     - [ ] punkt 1,
-     - [ ] punkt 2,
-     - [ ] punkt 3,
-     - [x] punkt 4 z zaznaczeniem.
+ - [ ] punkt 1,
+ - [ ] punkt 2,
+ - [ ]  punkt 3,
+ - [x] punkt 4 z zaznaczeniem.
 
    ## Tabela
 
