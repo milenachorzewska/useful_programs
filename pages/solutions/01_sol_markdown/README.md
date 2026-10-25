@@ -67,11 +67,16 @@ $$
 $$
 
 ## Obrazek z wykresem:
-![Wykres] (pages/files/wykres.png)
+![Wykres](wykres.png)
 
 ## Kod Pythona
 
-
+```python
+import math
+promien = 5
+pole = math.pi * promien**2
+print("Pole koła =", pole)
+```
 
 
 
