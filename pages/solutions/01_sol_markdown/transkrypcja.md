@@ -20,6 +20,8 @@ Wzory matematyczne zapisz przy użyciu składni LaTeX. Krótkie wzory umieść m
 
 Nie dopisuj informacji, których nie ma na obrazie. Jeżeli jakiś fragment jest nieczytelny, oznacz go jako [fragment nieczytelny].
 ```
+## Finalna wersja notatki
+
 ### 11. Co to są kropki kwantowe i jakie mają właściwości?
 
 - 0D struktura
