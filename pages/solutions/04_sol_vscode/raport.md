@@ -35,7 +35,7 @@ $$
 \begin{aligned}
 v_{x0} &= v_0\cos\theta, &
 v_{y0} &= v_0\sin\theta.
-\end{aligned}\tag{1}
+\end{aligned}
 $$
 
 ![Schemat położenia początkowego, kąta wyrzutu i składowych prędkości](schemat_startu.svg?v=2)
@@ -72,7 +72,7 @@ $$
 \begin{aligned}
 m\ddot{x} &= 0, &
 m\ddot{y} &= -mg.
-\end{aligned}\tag{2}
+\end{aligned}
 $$
 
 Po skróceniu przez masę otrzymujemy stałe przyspieszenia $a_x=0$ i $a_y=-g$. Dla warunków początkowych $x(0)=0$ oraz $y(0)=y_0$ rozwiązania są następujące:
@@ -81,7 +81,7 @@ $$
 \begin{aligned}
 x(t) &= v_0 t\cos\theta,\\
 y(t) &= y_0+v_0 t\sin\theta-\frac{1}{2}gt^2.
-\end{aligned}\tag{3}
+\end{aligned}
 $$
 
 Prędkość w każdej chwili wynosi:
@@ -90,7 +90,7 @@ $$
 \begin{aligned}
 v_x(t) &= v_0\cos\theta,\\
 v_y(t) &= v_0\sin\theta-gt.
-\end{aligned}\tag{4}
+\end{aligned}
 $$
 
 ### 2.2. Tor, wierzchołek i czas lotu
@@ -105,7 +105,7 @@ $$
 \begin{aligned}
 y(x) &= y_0+x\tan\theta\\
 &\quad-\frac{g x^2}{2v_0^2\cos^2\theta}.
-\end{aligned}\tag{5}
+\end{aligned}
 $$
 
 Jest to parabola. W najwyższym punkcie $v_y=0$, zatem:
@@ -115,16 +115,13 @@ $$
 t_{\mathrm{w}} &= \frac{v_0\sin\theta}{g},\\
 x_{\mathrm{w}} &= \frac{v_0^2\sin(2\theta)}{2g},\\
 y_{\max} &= y_0+\frac{v_0^2\sin^2\theta}{2g}.
-\end{aligned}\tag{6}
+\end{aligned}
 $$
 
 Chwilę lądowania wyznacza dodatni pierwiastek równania $y(t)=0$:
 
 $$
-\begin{aligned}
-t_{\mathrm{lot}}
-&= \frac{v_0\sin\theta+\sqrt{(v_0\sin\theta)^2+2gy_0}}{g}.
-\end{aligned}\tag{7}
+t_{\mathrm{lot}} = \frac{v_0\sin\theta+\sqrt{(v_0\sin\theta)^2+2gy_0}}{g}
 $$
 
 Zasięg poziomy wynosi $R=x(t_{\mathrm{lot}})$. Gdy miejsce wyrzutu i płaszczyzna lądowania znajdują się na tej samej wysokości, czyli $y_0=0$, wzór na zasięg upraszcza się do:
@@ -140,10 +137,7 @@ Przy ustalonej szybkości początkowej największy zasięg w tym przypadku wyst�
 Pomijając opór, energia mechaniczna jest zachowana:
 
 $$
-\begin{aligned}
-E &= \frac{1}{2}mv^2+mgy\\
-&= \mathrm{const}.
-\end{aligned}\tag{8}
+E = \frac{1}{2}mv^2+mgy = \mathrm{const}
 $$
 
 W czasie wznoszenia energia kinetyczna maleje, a potencjalna rośnie. Podczas opadania zachodzi odwrotna przemiana. Nie oznacza to, że szybkość maleje przez cały lot: po osiągnięciu wierzchołka zaczyna rosnąć.
@@ -155,9 +149,7 @@ W czasie wznoszenia energia kinetyczna maleje, a potencjalna rośnie. Podczas op
 Dla ciała poruszającego się w powietrzu przyjmujemy często opór proporcjonalny do kwadratu szybkości. Wektor siły jest przeciwnie skierowany do prędkości:
 
 $$
-\begin{aligned}
-\vec{F}_{\mathrm{op}} &= -\frac{1}{2}\rho C_d A\,v\vec{v}.
-\end{aligned}\tag{9}
+\vec{F}_{\mathrm{op}} = -\frac{1}{2}\rho C_d A\,v\vec{v}
 $$
 
 Współczynnik $C_d$ zależy między innymi od kształtu ciała i liczby Reynoldsa. Wprowadzając oznaczenie $k=\tfrac{1}{2}\rho C_d A$, zapisujemy równania składowych ruchu:
@@ -169,7 +161,7 @@ $$
 \dot{v}_x &= -\frac{k}{m}v v_x,\\
 \dot{v}_y &= -g-\frac{k}{m}v v_y,\\
 v &= \sqrt{v_x^2+v_y^2}.
-\end{aligned}\tag{10}
+\end{aligned}
 $$
 
 Siła oporu ma składową poziomą i pionową. Wskutek tego $v_x$ nie jest stałe, a tor nie jest parabolą. Zależność siły od szybkości $v=\sqrt{v_x^2+v_y^2}$ sprawia, że w ogólności nie można rozwiązać tych równań za pomocą prostych wzorów analitycznych. W przykładzie układ czterech równań różniczkowych pierwszego rzędu rozwiązujemy numerycznie.
@@ -183,9 +175,7 @@ Siła oporu ma składową poziomą i pionową. Wskutek tego $v_x$ nie jest stał
 Iloczyn skalarny siły oporu i prędkości jest niedodatni:
 
 $$
-\begin{aligned}
-\vec{F}_{\mathrm{op}}\cdot\vec{v} &= -kv^3 \leq 0.
-\end{aligned}\tag{11}
+\vec{F}_{\mathrm{op}}\cdot\vec{v} = -kv^3 \leq 0
 $$
 
 Siła oporu zawsze zmniejsza energię mechaniczną. Nie działa jednak wyłącznie w dół: podczas wznoszenia jej składowa pionowa jest skierowana w dół, a podczas opadania — ku górze. W obu fazach siła oporu jest skierowana przeciwnie do chwilowej prędkości.
@@ -199,7 +189,7 @@ $$
 mg &= kv_{\mathrm{gr}}^2,\\
 v_{\mathrm{gr}} &= \sqrt{\frac{mg}{k}},\\
 v_{\mathrm{gr}} &= \sqrt{\frac{2mg}{\rho C_d A}}.
-\end{aligned}\tag{12}
+\end{aligned}
 $$
 
 Jest to graniczna szybkość dla idealizowanego spadania pionowego przy stałych $\rho$ i $C_d$. W rzucie ukośnym trajektoria nie osiąga w ogólności tego prostego stanu równowagi.
@@ -255,7 +245,7 @@ $$
 \begin{aligned}
 v_{x0} &= 36\cos(34^\circ) \approx 29{,}85\,\mathrm{m/s},\\
 v_{y0} &= 36\sin(34^\circ) \approx 20{,}13\,\mathrm{m/s}.
-\end{aligned}\tag{13}
+\end{aligned}
 $$
 
 ![Rozkład prędkości początkowej 36 metrów na sekundę na składową poziomą i pionową dla kąta 34 stopni](rozklad_predkosci_36_34.svg?v=2)
