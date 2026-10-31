@@ -102,7 +102,10 @@ $$
 Po wyeliminowaniu czasu $t=\tfrac{x}{v_0\cos\theta}$ otrzymujemy równanie toru:
 
 $$
-y(x) = y_0+x\tan\theta-\frac{g x^2}{2v_0^2\cos^2\theta}.\tag{5}
+\begin{aligned}
+y(x) &= y_0+x\tan\theta\\
+&\quad-\frac{g x^2}{2v_0^2\cos^2\theta}.
+\end{aligned}\tag{5}
 $$
 
 Jest to parabola. W najwyższym punkcie $v_y=0$, zatem:
@@ -137,7 +140,10 @@ Przy ustalonej szybkości początkowej największy zasięg w tym przypadku wyst�
 Pomijając opór, energia mechaniczna jest zachowana:
 
 $$
-E = \frac{1}{2}mv^2+mgy = \mathrm{const}.\tag{8}
+\begin{aligned}
+E &= \frac{1}{2}mv^2+mgy\\
+&= \mathrm{const}.
+\end{aligned}\tag{8}
 $$
 
 W czasie wznoszenia energia kinetyczna maleje, a potencjalna rośnie. Podczas opadania zachodzi odwrotna przemiana. Nie oznacza to, że szybkość maleje przez cały lot: po osiągnięciu wierzchołka zaczyna rosnąć.
@@ -149,7 +155,9 @@ W czasie wznoszenia energia kinetyczna maleje, a potencjalna rośnie. Podczas op
 Dla ciała poruszającego się w powietrzu przyjmujemy często opór proporcjonalny do kwadratu szybkości. Wektor siły jest przeciwnie skierowany do prędkości:
 
 $$
-\vec{F}_{\mathrm{op}} = -\frac{1}{2}\rho C_d A\,v\vec{v}.\tag{9}
+\begin{aligned}
+\vec{F}_{\mathrm{op}} &= -\frac{1}{2}\rho C_d A\,v\vec{v}.
+\end{aligned}\tag{9}
 $$
 
 Współczynnik $C_d$ zależy między innymi od kształtu ciała i liczby Reynoldsa. Wprowadzając oznaczenie $k=\tfrac{1}{2}\rho C_d A$, zapisujemy równania składowych ruchu:
@@ -175,7 +183,9 @@ Siła oporu ma składową poziomą i pionową. Wskutek tego $v_x$ nie jest stał
 Iloczyn skalarny siły oporu i prędkości jest niedodatni:
 
 $$
-\vec{F}_{\mathrm{op}}\cdot\vec{v} = -kv^3 \leq 0.\tag{11}
+\begin{aligned}
+\vec{F}_{\mathrm{op}}\cdot\vec{v} &= -kv^3 \leq 0.
+\end{aligned}\tag{11}
 $$
 
 Siła oporu zawsze zmniejsza energię mechaniczną. Nie działa jednak wyłącznie w dół: podczas wznoszenia jej składowa pionowa jest skierowana w dół, a podczas opadania — ku górze. W obu fazach siła oporu jest skierowana przeciwnie do chwilowej prędkości.
