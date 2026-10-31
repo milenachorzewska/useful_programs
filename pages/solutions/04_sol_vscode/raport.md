@@ -40,7 +40,7 @@ $$
 
 ![Schemat położenia początkowego, kąta wyrzutu i składowych prędkości](schemat_startu.svg?v=2)
 
-*Rysunek 1. Rozkład prędkości początkowej na składową poziomą i pionową.*
+_Rysunek 1. Rozkład prędkości początkowej na składową poziomą i pionową._
 
 W modelu z oporem przyjmujemy, że powietrze jest nieruchome względem układu odniesienia, a jego gęstość $\rho$ oraz współczynnik oporu $C_d$ są stałe. Masa ciała i pole powierzchni czołowej $A$ również się nie zmieniają. Pomijamy wiatr, obrót ciała i wynikającą z niego siłę nośną, w tym siłę Magnusa. Przyspieszenie grawitacyjne $g$ jest stałe, a powierzchnię lądowania modelujemy jako płaszczyznę poziomą $y=0$. Lądowanie oznacza pierwsze ponowne osiągnięcie tej płaszczyzny po starcie, czyli pierwszą chwilę $t>0$, w której $y(t)=0$ podczas opadania.
 
@@ -97,7 +97,7 @@ $$
 
 ![Schemat etapów lotu: start, wznoszenie, wierzchołek toru i lądowanie](etapy_lotu.svg?v=2)
 
-*Rysunek 2. W najwyższym punkcie toru składowa pionowa prędkości jest równa zeru.*
+_Rysunek 2. W najwyższym punkcie toru składowa pionowa prędkości jest równa zeru._
 
 Po wyeliminowaniu czasu $t=\tfrac{x}{v_0\cos\theta}$ otrzymujemy równanie toru:
 
@@ -170,7 +170,7 @@ Siła oporu ma składową poziomą i pionową. Wskutek tego $v_x$ nie jest stał
 
 ![Kierunki prędkości, siły ciężkości i siły oporu podczas wznoszenia i opadania](sily_w_fazach.svg?v=2)
 
-*Rysunek 3. Siła ciężkości jest zawsze skierowana w dół, a siła oporu — przeciwnie do wektora prędkości.*
+_Rysunek 3. Siła ciężkości jest zawsze skierowana w dół, a siła oporu — przeciwnie do wektora prędkości._
 
 Iloczyn skalarny siły oporu i prędkości jest niedodatni:
 
@@ -219,21 +219,21 @@ Pierwszy wykres porównuje tory piłki, drugi przedstawia jej wysokość w funkc
 
 ![Tor piłki dla kąta 45 stopni bez oporu powietrza i z oporem kwadratowym](wykres_toru.svg?v=2)
 
-*Rysunek 4. Uwzględnienie oporu obniża wierzchołek toru i zmniejsza zasięg.*
+_Rysunek 4. Uwzględnienie oporu obniża wierzchołek toru i zmniejsza zasięg._
 
 ![Wysokość piłki w funkcji czasu dla obu modeli](wykres_wysokosci.svg?v=2)
 
-*Rysunek 5. Uwzględnienie oporu zmniejsza maksymalną wysokość i skraca czas lotu.*
+_Rysunek 5. Uwzględnienie oporu zmniejsza maksymalną wysokość i skraca czas lotu._
 
 ![Szybkość piłki w funkcji czasu dla obu modeli](wykres_szybkosci.svg?v=2)
 
-*Rysunek 6. Bez oporu szybkość jest najmniejsza w wierzchołku toru. Przy uwzględnieniu oporu zmniejsza się również pozioma składowa prędkości.*
+_Rysunek 6. Bez oporu szybkość jest najmniejsza w wierzchołku toru. Przy uwzględnieniu oporu zmniejsza się również pozioma składowa prędkości._
 
 ### 4.3. Jak odczytać wynik symulacji?
 
 ![Schemat obliczeń: od parametrów startowych i modelu sił do symulacji i wyników](schemat_obliczen.svg?v=2)
 
-*Rysunek 7. Symulacja z oporem kończy się, gdy algorytm całkujący wykryje, że piłka osiągnęła płaszczyznę lądowania $y=0$.*
+_Rysunek 7. Symulacja z oporem kończy się, gdy algorytm całkujący wykryje, że piłka osiągnęła płaszczyznę lądowania $y=0$._
 
 Przy kącie $30^\circ$ piłka osiąga niższą wysokość maksymalną i ma krótszy czas lotu niż przy kącie $45^\circ$, ale większa część jej prędkości początkowej jest skierowana poziomo. Przy kącie $60^\circ$ piłka wznosi się najwyżej i pozostaje w powietrzu najdłużej, lecz mniejsza pozioma składowa prędkości początkowej ogranicza zasięg. Opór powietrza dodatkowo zmniejsza zasięg, ponieważ działa przeciwnie do wektora prędkości i wpływa na obie jego składowe.
 
@@ -250,7 +250,7 @@ $$
 
 ![Rozkład prędkości początkowej 36 metrów na sekundę na składową poziomą i pionową dla kąta 34 stopni](rozklad_predkosci_36_34.svg?v=2)
 
-*Rysunek 8. Wektor prędkości początkowej ma wartość 36 m/s i jest nachylony do poziomu pod kątem 34°.*
+_Rysunek 8. Wektor prędkości początkowej ma wartość 36 m/s i jest nachylony do poziomu pod kątem 34°._
 
 | Model | Czas lotu [s] | Maks. wysokość [m] | Zasięg [m] |
 | :--- | ---: | ---: | ---: |
