@@ -1,5 +1,3 @@
-<div style="font-family: 'Times New Roman', Times, serif; font-size: 16px; line-height: 1.65; max-width: 960px; margin: 0 auto; padding: 24px;">
-
 # Rzut ukośny — od modelu idealnego do oporu powietrza
 
 *Raport obliczeniowy i przykład symulacji numerycznej w Pythonie.*
@@ -476,19 +474,15 @@ Równania ruchu z oporem rozwiązano numerycznie, a dołączony kod pozwala odtw
 
 ### Lista kontrolna raportu
 
-<ul style="list-style: none; padding-left: 0;">
-  <li><input type="checkbox" checked disabled> Zdefiniowano układ współrzędnych, symbole, jednostki i założenia modelu.</li>
-  <li><input type="checkbox" checked disabled> Przedstawiono równania ruchu bez oporu oraz z oporem powietrza.</li>
-  <li><input type="checkbox" checked disabled> Porównano czas lotu, maksymalną wysokość i zasięg dla kilku kątów wyrzutu.</li>
-  <li><input type="checkbox" checked disabled> Dołączono wykresy i schematy ilustrujące ruch oraz działające siły.</li>
-  <li><input type="checkbox" checked disabled> Podano kod umożliwiający odtworzenie obliczeń i wykresów.</li>
-  <li><input type="checkbox" checked disabled> Zestawiono ograniczenia modelu i wskazano źródła do dalszej lektury.</li>
-  <li><input type="checkbox" disabled> Raport przeczytany przez czytelnika.</li>
-</ul>
+- [x] Zdefiniowano układ współrzędnych, symbole, jednostki i założenia modelu.
+- [x] Przedstawiono równania ruchu bez oporu oraz z oporem powietrza.
+- [x] Porównano czas lotu, maksymalną wysokość i zasięg dla kilku kątów wyrzutu.
+- [x] Dołączono wykresy i schematy ilustrujące ruch oraz działające siły.
+- [x] Podano kod umożliwiający odtworzenie obliczeń i wykresów.
+- [x] Zestawiono ograniczenia modelu i wskazano źródła do dalszej lektury.
+- [ ] Raport przeczytany przez czytelnika.
 
 ## 8. Dalsza lektura
 
 - [OpenStax: Projectile Motion](https://openstax.org/books/university-physics-volume-1/pages/4-3-projectile-motion) — ruch pocisku bez oporu powietrza.
 - [NASA Glenn: The Drag Equation](https://www1.grc.nasa.gov/beginners-guide-to-aeronautics/drag-equation/) — równanie siły oporu i znaczenie jego parametrów.
-
-</div>
