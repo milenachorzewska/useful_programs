@@ -1,3 +1,5 @@
+<div style="font-family: 'Times New Roman', Times, serif; font-size: 16px; line-height: 1.65; max-width: 960px; margin: 0 auto; padding: 24px;">
+
 # Rzut ukośny — od modelu idealnego do oporu powietrza
 
 *Raport obliczeniowy i przykład symulacji numerycznej w Pythonie.*
@@ -6,7 +8,7 @@
 **Metoda:** wyprowadzenie równań, obliczenia analityczne bez oporu, symulacja z oporem kwadratowym.  
 **Charakter danych:** przykład modelowy; wyniki nie pochodzą z pomiaru laboratoryjnego.
 
-Rzut ukośny jest prostym modelem ruchu w polu grawitacyjnym. Bez oporu powietrza składowa pozioma prędkości pozostaje stała, a pionowa zmienia się pod wpływem grawitacji. Opór powietrza sprzęga oba kierunki: zmniejsza szybkość, skraca lot i sprawia, że tor przestaje być parabolą.
+Rzut ukośny jest modelem ruchu ciała w polu grawitacyjnym. Bez oporu powietrza pozioma składowa prędkości pozostaje stała, a pionowa zmienia się pod wpływem siły ciężkości. Opór powietrza wpływa na obie składowe prędkości, skraca czas lotu i zasięg oraz sprawia, że tor nie jest parabolą.
 
 ## Spis treści
 
@@ -23,67 +25,74 @@ Rzut ukośny jest prostym modelem ruchu w polu grawitacyjnym. Bez oporu powietrz
 
 ## 1. Cel i założenia
 
-Celem raportu jest porównanie toru, czasu lotu i zasięgu dla dwóch modeli: idealnego, w którym działa wyłącznie grawitacja, oraz uwzględniającego opór powietrza. W obu przypadkach przyjmujemy te same warunki początkowe, aby różnica wyników wynikała z samego modelu siły oporu.
+Celem raportu jest porównanie toru, czasu lotu, maksymalnej wysokości i zasięgu w dwóch modelach ruchu: idealnym, w którym po wyrzuceniu działa wyłącznie siła ciężkości, oraz uwzględniającym kwadratowy opór powietrza. W każdym porównaniu obu modeli przyjmujemy te same warunki początkowe i parametry ciała. Dzięki temu różnice wynikają z uwzględnienia oporu, a nie ze zmiany danych wejściowych. Model bez oporu rozwiązujemy analitycznie, a równania z oporem — numerycznie. Przedstawione wartości są wynikami modelu, nie pomiarami rzeczywistego lotu.
 
 ### 1.1. Układ współrzędnych i warunki początkowe
 
-Początek układu współrzędnych znajduje się na ziemi bezpośrednio pod miejscem wyrzutu. Oś $x$ jest pozioma i skierowana zgodnie z ruchem pocisku, a oś $y$ jest pionowa i skierowana ku górze. Ciało startuje z wysokości $y_0$ z szybkością $v_0$ pod kątem $	heta$ do poziomu.
+Ruch opisujemy w pionowej płaszczyźnie. Początek układu współrzędnych znajduje się na wysokości powierzchni lądowania, bezpośrednio pod miejscem wyrzutu. Oś $x$ jest pozioma i skierowana zgodnie z poziomą składową prędkości początkowej, a oś $y$ jest pionowa i skierowana ku górze. W chwili $t=0$ ciało znajduje się w punkcie $(0,y_0)$ i ma szybkość $v_0$; kąt $\theta$ mierzymy od dodatniego kierunku osi $x$.
 
-Składowe prędkości początkowej wynoszą:
+Początkowe składowe prędkości są równe:
 
 $$
-v_{x0}=v_0\cos\theta,
-\qquad
-v_{y0}=v_0\sin\theta.
+\begin{aligned}
+v_{x0} &= v_0\cos\theta, &
+v_{y0} &= v_0\sin\theta.
+\end{aligned}\tag{1}
 $$
 
 ![Schemat położenia początkowego, kąta wyrzutu i składowych prędkości](schemat_startu.svg)
 
-*Rysunek 1. Prędkość początkową rozkładamy na składową poziomą i pionową.*
+*Rysunek 1. Rozkład prędkości początkowej na składową poziomą i pionową.*
 
-Za moment lądowania uznajemy pierwszą chwilę po starcie, dla której $y=0$. Pomijamy wiatr, obrót ciała, zmianę gęstości powietrza z wysokością i nierówności terenu.
+W modelu z oporem przyjmujemy, że powietrze jest nieruchome względem układu odniesienia, a jego gęstość $\rho$ oraz współczynnik oporu $C_d$ są stałe. Masa ciała i pole powierzchni czołowej $A$ również się nie zmieniają. Pomijamy wiatr, obrót ciała i wynikającą z niego siłę nośną, w tym siłę Magnusa. Przyspieszenie grawitacyjne $g$ jest stałe, a powierzchnię lądowania modelujemy jako płaszczyznę poziomą $y=0$. Lądowanie oznacza pierwsze ponowne osiągnięcie tej płaszczyzny po starcie, czyli pierwszą chwilę $t>0$, w której $y(t)=0$ podczas opadania.
 
 ### 1.2. Symbole i jednostki
 
 | Symbol | Znaczenie | Jednostka SI |
 | :--- | :--- | :---: |
-| $x$, $y$ | współrzędne położenia | $\mathrm{m}$ |
+| $t$ | czas liczony od chwili wyrzutu | $\mathrm{s}$ |
+| $x$, $y$, $y_0$ | współrzędne położenia i wysokość początkowa | $\mathrm{m}$ |
 | $v_x$, $v_y$ | składowe prędkości | $\mathrm{m/s}$ |
-| $v$ | szybkość, $v=\sqrt{v_x^2+v_y^2}$ | $\mathrm{m/s}$ |
+| $v$, $v_0$ | szybkość chwilowa i początkowa, $v=\sqrt{v_x^2+v_y^2}$ | $\mathrm{m/s}$ |
 | $a_x$, $a_y$ | składowe przyspieszenia | $\mathrm{m/s^2}$ |
 | $m$ | masa ciała | $\mathrm{kg}$ |
 | $g$ | przyspieszenie ziemskie | $\mathrm{m/s^2}$ |
 | $\theta$ | kąt wyrzutu względem poziomu | $^\circ$ lub $\mathrm{rad}$ |
 | $\rho$ | gęstość powietrza | $\mathrm{kg/m^3}$ |
 | $C_d$ | bezwymiarowy współczynnik oporu | $1$ |
-| $A$ | pole powierzchni czołowej | $\mathrm{m^2}$ |
+| $A$, $r$ | pole powierzchni czołowej i promień piłki w przykładzie | $\mathrm{m^2}$, $\mathrm{m}$ |
+| $k=\tfrac{1}{2}\rho C_d A$ | stała w modelu oporu kwadratowego | $\mathrm{kg/m}$ |
+| $R$ | zasięg poziomy | $\mathrm{m}$ |
 
 ## 2. Rzut bez oporu powietrza
 
 ### 2.1. Równania ruchu
 
-W modelu idealnym jedyną siłą działającą na ciało po wyrzuceniu jest ciężar $\vec{F}_g=(0,-mg)$. Z drugiej zasady Newtona:
+W modelu idealnym jedyną siłą działającą na ciało po wyrzuceniu jest siła ciężkości $\vec{F}_g=(0,-mg)$. Z drugiej zasady dynamiki Newtona:
 
 $$
-m\ddot{x}=0,
-\qquad
-m\ddot{y}=-mg.
+\begin{aligned}
+m\ddot{x} &= 0, &
+m\ddot{y} &= -mg.
+\end{aligned}\tag{2}
 $$
 
 Po skróceniu przez masę otrzymujemy stałe przyspieszenia $a_x=0$ i $a_y=-g$. Dla warunków początkowych $x(0)=0$ oraz $y(0)=y_0$ rozwiązania są następujące:
 
 $$
-x(t)=v_0\cos\theta\,t,
-\qquad
-y(t)=y_0+v_0\sin\theta\,t-\frac{1}{2}gt^2.
+\begin{aligned}
+x(t) &= v_0\cos\theta\,t,\\[8pt]
+y(t) &= y_0+v_0\sin\theta\,t-\frac{1}{2}gt^2.
+\end{aligned}\tag{3}
 $$
 
 Prędkość w każdej chwili wynosi:
 
 $$
-v_x(t)=v_0\cos\theta,
-\qquad
-v_y(t)=v_0\sin\theta-gt.
+\begin{aligned}
+v_x(t) &= v_0\cos\theta,\\[8pt]
+v_y(t) &= v_0\sin\theta-gt.
+\end{aligned}\tag{4}
 $$
 
 ### 2.2. Tor, wierzchołek i czas lotu
@@ -92,38 +101,45 @@ $$
 
 *Rysunek 2. W najwyższym punkcie toru składowa pionowa prędkości jest równa zeru.*
 
-Eliminując czas $t=x/(v_0\cos\theta)$, dostajemy równanie toru:
+Po wyeliminowaniu czasu $t=\tfrac{x}{v_0\cos\theta}$ otrzymujemy równanie toru:
 
 $$
-y(x)=y_0+x\tan\theta-
-\frac{g x^2}{2v_0^2\cos^2\theta}.
+y(x) = y_0+x\tan\theta-\frac{g x^2}{2v_0^2\cos^2\theta}.\tag{5}
 $$
 
 Jest to parabola. W najwyższym punkcie $v_y=0$, zatem:
 
 $$
-t_{\mathrm{w}}=\frac{v_0\sin\theta}{g},
-\qquad
-x_{\mathrm{w}}=\frac{v_0^2\sin(2\theta)}{2g},
-\qquad
-y_{\max}=y_0+\frac{v_0^2\sin^2\theta}{2g}.
+\begin{aligned}
+t_{\mathrm{w}} &= \frac{v_0\sin\theta}{g},\\[8pt]
+x_{\mathrm{w}} &= \frac{v_0^2\sin(2\theta)}{2g},\\[8pt]
+y_{\max} &= y_0+\frac{v_0^2\sin^2\theta}{2g}.
+\end{aligned}\tag{6}
 $$
 
 Chwilę lądowania wyznacza dodatni pierwiastek równania $y(t)=0$:
 
 $$
-t_{\mathrm{lot}}=
-\frac{v_0\sin\theta+\sqrt{(v_0\sin\theta)^2+2gy_0}}{g}.
+\begin{aligned}
+t_{\mathrm{lot}}
+&= \frac{v_0\sin\theta+\sqrt{(v_0\sin\theta)^2+2gy_0}}{g}.
+\end{aligned}\tag{7}
 $$
 
-Zasięg poziomy to $R=x(t_{\mathrm{lot}})$. Dla startu i lądowania na tej samej wysokości ($y_0=0$) wzór upraszcza się do $R=v_0^2\sin(2\theta)/g$. Wtedy, przy ustalonej szybkości początkowej, największy zasięg występuje dla $\theta=45^\circ$. Dla $y_0>0$ kąt maksymalnego zasięgu nie musi wynosić $45^\circ$.
+Zasięg poziomy wynosi $R=x(t_{\mathrm{lot}})$. Gdy miejsce wyrzutu i płaszczyzna lądowania znajdują się na tej samej wysokości, czyli $y_0=0$, wzór na zasięg upraszcza się do:
+
+$$
+R = \frac{v_0^2\sin(2\theta)}{g}.
+$$
+
+Przy ustalonej szybkości początkowej największy zasięg w tym przypadku występuje dla kąta $\theta=45^\circ$. Gdy $y_0>0$, kąt maksymalnego zasięgu nie musi wynosić $45^\circ$.
 
 ### 2.3. Energia w modelu idealnym
 
 Pomijając opór, energia mechaniczna jest zachowana:
 
 $$
-E=\frac{1}{2}mv^2+mgy=\mathrm{const}.
+E = \frac{1}{2}mv^2+mgy = \mathrm{const}.\tag{8}
 $$
 
 W czasie wznoszenia energia kinetyczna maleje, a potencjalna rośnie. Podczas opadania zachodzi odwrotna przemiana. Nie oznacza to, że szybkość maleje przez cały lot: po osiągnięciu wierzchołka zaczyna rosnąć.
@@ -135,57 +151,54 @@ W czasie wznoszenia energia kinetyczna maleje, a potencjalna rośnie. Podczas op
 Dla ciała poruszającego się w powietrzu przyjmujemy często opór proporcjonalny do kwadratu szybkości. Wektor siły jest przeciwnie skierowany do prędkości:
 
 $$
-\vec{F}_{\mathrm{op}}=-\frac{1}{2}\rho C_d A\,v\vec{v}.
+\vec{F}_{\mathrm{op}} = -\frac{1}{2}\rho C_d A\,v\vec{v}.\tag{9}
 $$
 
-Współczynnik $C_d$ zależy między innymi od kształtu ciała i liczby Reynoldsa. Wprowadzając $k=\tfrac{1}{2}\rho C_d A$, możemy zapisać równania składowych:
+Współczynnik $C_d$ zależy między innymi od kształtu ciała i liczby Reynoldsa. Wprowadzając oznaczenie $k=\tfrac{1}{2}\rho C_d A$, zapisujemy równania składowych ruchu:
 
 $$
-\dot{x}=v_x,
-\qquad
-\dot{y}=v_y,
+\begin{aligned}
+\dot{x} &= v_x,\\[8pt]
+\dot{y} &= v_y,\\[8pt]
+\dot{v}_x &= -\frac{k}{m}v v_x,\\[8pt]
+\dot{v}_y &= -g-\frac{k}{m}v v_y,\\[8pt]
+v &= \sqrt{v_x^2+v_y^2}.
+\end{aligned}\tag{10}
 $$
 
-$$
-\dot{v}_x=-\frac{k}{m}v v_x,
-\qquad
-\dot{v}_y=-g-\frac{k}{m}v v_y,
-\qquad
-v=\sqrt{v_x^2+v_y^2}.
-$$
-
-Opór ma składową poziomą i pionową. Wskutek tego $v_x$ nie jest stałe, a tor nie jest parabolą. Zależność od $v=\sqrt{v_x^2+v_y^2}$ sprawia też, że równań nie da się w ogólności rozwiązać prostymi wzorami z poprzedniej sekcji. W przykładzie numerycznie całkujemy układ czterech równań pierwszego rzędu.
+Siła oporu ma składową poziomą i pionową. Wskutek tego $v_x$ nie jest stałe, a tor nie jest parabolą. Zależność siły od szybkości $v=\sqrt{v_x^2+v_y^2}$ sprawia, że w ogólności nie można rozwiązać tych równań za pomocą prostych wzorów analitycznych. W przykładzie układ czterech równań różniczkowych pierwszego rzędu rozwiązujemy numerycznie.
 
 ### 3.2. Kontrola kierunku siły i energii
 
-![Kierunki prędkości, ciężaru i siły oporu podczas wznoszenia i opadania](sily_w_fazach.svg)
+![Kierunki prędkości, siły ciężkości i siły oporu podczas wznoszenia i opadania](sily_w_fazach.svg)
 
-*Rysunek 3. Ciężar zawsze jest skierowany w dół, natomiast siła oporu jest przeciwnie skierowana do prędkości.*
+*Rysunek 3. Siła ciężkości jest zawsze skierowana w dół, a siła oporu — przeciwnie do wektora prędkości.*
 
-Iloczyn skalarny siły oporu i prędkości jest nieujemny po zmianie znaku:
+Iloczyn skalarny siły oporu i prędkości jest niedodatni:
 
 $$
-\vec{F}_{\mathrm{op}}\cdot\vec{v}=-kv^3\leq 0.
+\vec{F}_{\mathrm{op}}\cdot\vec{v} = -kv^3 \leq 0.\tag{11}
 $$
 
-Opór zawsze odbiera energię mechaniczną. Nie „ciągnie” jednak ciała wyłącznie w dół: podczas ruchu w górę jego składowa pionowa jest skierowana w dół, a podczas spadania w dół — ku górze. W obu przypadkach siła oporu jest przeciwna do chwilowej prędkości.
+Siła oporu zawsze zmniejsza energię mechaniczną. Nie działa jednak wyłącznie w dół: podczas wznoszenia jej składowa pionowa jest skierowana w dół, a podczas opadania — ku górze. W obu fazach siła oporu jest skierowana przeciwnie do chwilowej prędkości.
 
 ### 3.3. Prędkość graniczna
 
-Przy pionowym spadaniu i oporze kwadratowym prędkość graniczną otrzymujemy, równoważąc ciężar i wartość oporu:
+Przy pionowym spadaniu z oporem kwadratowym prędkość graniczną wyznaczamy, równoważąc siłę ciężkości z wartością siły oporu:
 
 $$
-mg=kv_{\mathrm{gr}}^2,
-\qquad
-v_{\mathrm{gr}}=\sqrt{\frac{mg}{k}}
-=\sqrt{\frac{2mg}{\rho C_d A}}.
+\begin{aligned}
+mg &= kv_{\mathrm{gr}}^2,\\[8pt]
+v_{\mathrm{gr}} &= \sqrt{\frac{mg}{k}},\\[8pt]
+v_{\mathrm{gr}} &= \sqrt{\frac{2mg}{\rho C_d A}}.
+\end{aligned}\tag{12}
 $$
 
 Jest to graniczna szybkość dla idealizowanego spadania pionowego przy stałych $\rho$ i $C_d$. W rzucie ukośnym trajektoria nie osiąga w ogólności tego prostego stanu równowagi.
 
 ## 4. Przykład liczbowy i porównanie
 
-Porównujemy lot modelowej piłki baseballowej, wyrzuconej z wysokości $1{,}50\,\mathrm{m}$ z szybkością $40{,}0\,\mathrm{m/s}$. Dla powietrza przyjmujemy $\rho=1{,}225\,\mathrm{kg/m^3}$, a dla piłki: $m=0{,}145\,\mathrm{kg}$, promień $r=0{,}0366\,\mathrm{m}$ i $C_d=0{,}47$. Pole czołowe to $A=\pi r^2$. Porównamy trzy kąty wyrzutu przy niezmienionych pozostałych parametrach.
+Porównujemy lot modelowej piłki baseballowej wyrzuconej z wysokości $1{,}50\,\mathrm{m}$ z szybkością $40{,}0\,\mathrm{m/s}$. Gęstość powietrza przyjmujemy jako $\rho=1{,}225\,\mathrm{kg/m^3}$. Parametry piłki wynoszą: masa $m=0{,}145\,\mathrm{kg}$, promień $r=0{,}0366\,\mathrm{m}$ i współczynnik oporu $C_d=0{,}47$. Pole powierzchni czołowej obliczamy ze wzoru $A=\pi r^2$. Porównujemy wyniki dla trzech kątów wyrzutu, pozostawiając pozostałe parametry bez zmian.
 
 ### 4.1. Zmiana kąta wyrzutu
 
@@ -198,70 +211,96 @@ Porównujemy lot modelowej piłki baseballowej, wyrzuconej z wysokości $1{,}50\
 | $60^\circ$ | bez oporu | 7,105 | 62,662 | 142,109 |
 | $60^\circ$ | opór kwadratowy | 5,722 | 40,947 | 71,176 |
 
-Wartości bez oporu wynikają ze wzorów analitycznych. Wyniki z oporem uzyskano numerycznie metodą Rungego–Kutty czwartego rzędu z maksymalnym krokiem $0{,}0005\,\mathrm{s}$. Dla tych parametrów kąt $45^\circ$ daje największy zasięg spośród trzech sprawdzonych kątów w obu modelach. Nie jest to uniwersalna reguła dla dowolnej wysokości startu, szybkości i oporu.
+Wartości dla modelu bez oporu obliczono analitycznie. Wyniki dla modelu z oporem uzyskano numerycznie metodą Rungego–Kutty czwartego rzędu, przy maksymalnym kroku całkowania $0{,}0005\,\mathrm{s}$. Dla przyjętych parametrów kąt $45^\circ$ zapewnia największy zasięg spośród trzech badanych kątów w obu modelach. Nie jest to jednak reguła uniwersalna — optymalny kąt zależy między innymi od wysokości początkowej, szybkości początkowej i parametrów oporu.
 
-W przypadku kąta $45^\circ$ opór zmniejsza zasięg o około $48\%$, maksymalną wysokość o około $31\%$ i czas lotu o około $18\%$. Różne procentowe zmiany wynikają z tego, że siła oporu zależy od szybkości oraz jej kierunku. Nie można poprawnie uwzględnić jej przez samo zmniejszenie przyspieszenia grawitacyjnego.
+Przy kącie $45^\circ$ uwzględnienie oporu zmniejsza zasięg o około $48\%$, maksymalną wysokość o około $31\%$, a czas lotu o około $18\%$. Różnice te wynikają z zależności siły oporu od wartości i kierunku prędkości. Nie można więc poprawnie uwzględnić oporu przez samo zmniejszenie przyspieszenia grawitacyjnego.
 
 ### 4.2. Trzy wykresy dla kąta $45^\circ$
 
-Pierwszy wykres porównuje kształt toru. Drugi pokazuje, jak wysokość zmienia się w czasie, a trzeci przedstawia zmianę szybkości. Wszystkie dotyczą tych samych warunków początkowych i tych samych modeli co wiersze tabeli dla $45^\circ$.
+Pierwszy wykres porównuje tory piłki, drugi przedstawia jej wysokość w funkcji czasu, a trzeci — szybkość. Wszystkie wykresy dotyczą tych samych warunków początkowych i modeli co wiersze tabeli dla kąta $45^\circ$.
 
 ![Tor piłki dla kąta 45 stopni bez oporu powietrza i z oporem kwadratowym](wykres_toru.svg)
 
-*Rysunek 4. Opór obniża wierzchołek toru i wyraźnie skraca zasięg.*
+*Rysunek 4. Uwzględnienie oporu obniża wierzchołek toru i zmniejsza zasięg.*
 
 ![Wysokość piłki w funkcji czasu dla obu modeli](wykres_wysokosci.svg)
 
-*Rysunek 5. Maksymalna wysokość jest mniejsza z oporem, a lądowanie następuje wcześniej.*
+*Rysunek 5. Uwzględnienie oporu zmniejsza maksymalną wysokość i skraca czas lotu.*
 
 ![Szybkość piłki w funkcji czasu dla obu modeli](wykres_szybkosci.svg)
 
-*Rysunek 6. Bez oporu szybkość jest najmniejsza w wierzchołku toru. Z oporem maleje również składowa pozioma.*
+*Rysunek 6. Bez oporu szybkość jest najmniejsza w wierzchołku toru. Przy uwzględnieniu oporu zmniejsza się również pozioma składowa prędkości.*
 
 ### 4.3. Jak odczytać wynik symulacji?
 
 ![Schemat obliczeń: od parametrów startowych i modelu sił do symulacji i wyników](schemat_obliczen.svg)
 
-*Rysunek 7. Symulacja z oporem kończy się, gdy solver wykryje osiągnięcie poziomu gruntu.*
+*Rysunek 7. Symulacja z oporem kończy się, gdy algorytm całkujący wykryje, że piłka osiągnęła płaszczyznę lądowania $y=0$.*
 
-Przy $30^\circ$ piłka leci niżej i krócej niż przy $45^\circ$, ale zachowuje większą część ruchu w kierunku poziomym. Przy $60^\circ$ wznosi się najwyżej i pozostaje w powietrzu najdłużej, jednak duża część prędkości początkowej jest skierowana pionowo. Opór szczególnie ogranicza zasięg tego stromego rzutu, bo szybkość i czas spędzony w powietrzu nie przekładają się wprost na przesunięcie poziome.
+Przy kącie $30^\circ$ piłka osiąga niższą wysokość maksymalną i ma krótszy czas lotu niż przy kącie $45^\circ$, ale większa część jej prędkości początkowej jest skierowana poziomo. Przy kącie $60^\circ$ piłka wznosi się najwyżej i pozostaje w powietrzu najdłużej, lecz mniejsza pozioma składowa prędkości początkowej ogranicza zasięg. Opór powietrza dodatkowo zmniejsza zasięg, ponieważ działa przeciwnie do wektora prędkości i wpływa na obie jego składowe.
 
 ### 4.4. Dodatkowy przykład
 
-W tym dodatkowym przykładzie zachowujemy parametry piłki, powietrza i wysokość początkową z poprzedniego przykładu. Zmieniamy wyłącznie szybkość i kąt wyrzutu. Wektor prędkości początkowej rozkłada się na składowe:
+W tym dodatkowym przykładzie zachowujemy parametry piłki i powietrza oraz wysokość początkową z poprzedniego przykładu. Zmieniamy tylko szybkość i kąt wyrzutu. Początkowy wektor prędkości rozkładamy na składowe:
 
 $$
-v_{x0}=36\cos(34^\circ)\approx29{,}85\,\mathrm{m/s},
-\qquad
-v_{y0}=36\sin(34^\circ)\approx20{,}13\,\mathrm{m/s}.
+\begin{aligned}
+v_{x0} &= 36\cos(34^\circ) \approx 29{,}85\,\mathrm{m/s},\\[8pt]
+v_{y0} &= 36\sin(34^\circ) \approx 20{,}13\,\mathrm{m/s}.
+\end{aligned}\tag{13}
 $$
 
 ![Rozkład prędkości początkowej 36 metrów na sekundę na składową poziomą i pionową dla kąta 34 stopni](rozklad_predkosci_36_34.svg)
 
-*Rysunek 8. Długość wektora $v_0$ odpowiada szybkości $36\,\mathrm{m/s}$, a kąt między nim i poziomem wynosi $34^\circ$.*
+*Rysunek 8. Wektor prędkości początkowej ma wartość 36 m/s i jest nachylony do poziomu pod kątem 34°.*
 
 | Model | Czas lotu [s] | Maks. wysokość [m] | Zasięg [m] |
 | :--- | ---: | ---: | ---: |
 | Bez oporu powietrza | 4,177 | 22,155 | 124,675 |
 | Z oporem kwadratowym | 3,626 | 16,943 | 75,314 |
 
-Bez oporu składowa pozioma pozostaje stała, a pionowa maleje z przyspieszeniem $g$. Po uwzględnieniu oporu obie składowe prędkości zmieniają się w czasie, dlatego tor jest krótszy i niższy. Ten przypadek jest osobnym obliczeniem; nie należy do porównania kątów omawianego w punkcie 4.3.
+Bez oporu pozioma składowa prędkości pozostaje stała, a pionowa zmienia się pod wpływem przyspieszenia grawitacyjnego $g$. Po uwzględnieniu oporu obie składowe prędkości zmieniają się w czasie, a tor ma mniejszy zasięg i wysokość maksymalną. Jest to osobny przykład; nie należy do porównania kątów przedstawionego w punkcie 4.1.
 
 ## 5. Kod i odtwarzanie wyników
 
-Poniższy skrypt używa NumPy, SciPy i Matplotlib. Można uruchomić go w notebooku Google Colab albo lokalnie po zainstalowaniu bibliotek:
+Kod wykorzystuje biblioteki NumPy, SciPy i Matplotlib. Odtwarza obliczenia oraz trzy wykresy: toru, wysokości i szybkości piłki. Wykresy są wyświetlane po uruchomieniu, a ich kopie PNG zapisywane w katalogu `wykresy`.
+
+### 5.1. Uruchomienie w Google Colabie
+
+1. Otwórz [Google Colab](https://colab.research.google.com/) i utwórz nowy notatnik.
+2. W pierwszej komórce zainstaluj wymagane biblioteki:
+
+```python
+%pip install numpy scipy matplotlib
+```
+
+3. Skopiuj cały poniższy blok kodu do kolejnej komórki i uruchom ją. Kod oblicza wyniki, wyświetla wykresy i zapisuje je w katalogu `wykresy` w środowisku Colaba. Pliki PNG możesz pobrać z panelu plików.
+
+### 5.2. Uruchomienie lokalne
+
+Zapisz poniższy blok kodu w pliku `generuj_wykresy.py` w katalogu `pages/solutions/04_sol_vscode`. Następnie w terminalu przejdź do tego katalogu i wykonaj:
 
 ```bash
 python -m pip install numpy scipy matplotlib
+python generuj_wykresy.py
 ```
 
-Kod oblicza rozwiązanie analityczne bez oporu, numeryczne z oporem i rysuje porównanie torów. Zdarzenie $y=0$ zatrzymuje całkowanie w chwili lądowania.
+Pliki PNG zostaną zapisane w podkatalogu `wykresy` względem bieżącego katalogu. Przy każdym uruchomieniu kod wyświetli też wykresy w oknie graficznym lub w notatniku. Nie nadpisuje on osadzonych w raporcie ilustracji SVG.
 
 ```python
+from pathlib import Path
 import math
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.integrate import solve_ivp
+
+OUT = Path("wykresy")
+OUT.mkdir(parents=True, exist_ok=True)
+
+def zapisz_wykres(nazwa):
+	plt.savefig(OUT / f"{nazwa}.png", dpi=180, bbox_inches="tight")
+	plt.show()
+	plt.close()
 
 g = 9.81
 m = 0.145
@@ -332,7 +371,7 @@ plt.title("Rzut ukośny: porównanie modeli")
 plt.grid(alpha=0.25)
 plt.legend()
 plt.tight_layout()
-plt.show()
+zapisz_wykres("wykres_toru")
  
 # Wysokość w funkcji czasu.
 plt.figure(figsize=(9, 5.5))
@@ -344,9 +383,9 @@ plt.title("Wysokość w czasie dla kąta 45°")
 plt.grid(alpha=0.25)
 plt.legend()
 plt.tight_layout()
-plt.show()
+zapisz_wykres("wykres_wysokosci")
 
-# Szybkosc w funkcji czasu.
+# Szybkość w funkcji czasu.
 speed_ideal = np.hypot(vx0, vy0 - g * t_ideal)
 speed_drag = np.hypot(solution.y[2], solution.y[3])
 plt.figure(figsize=(9, 5.5))
@@ -358,9 +397,9 @@ plt.title("Szybkość w czasie dla kąta 45°")
 plt.grid(alpha=0.25)
 plt.legend()
 plt.tight_layout()
-plt.show()
+zapisz_wykres("wykres_szybkosci")
 
-# Tabela porownawcza dla trzech katow wyrzutu.
+# Tabela porównawcza dla trzech kątów wyrzutu.
 for angle_degrees in (30, 45, 60):
 	angle_value = math.radians(angle_degrees)
 	initial_vx = v0 * math.cos(angle_value)
@@ -380,12 +419,12 @@ for angle_degrees in (30, 45, 60):
 	flight_drag_angle = result.t_events[0][0]
 	height_drag_angle = np.max(result.y[1])
 	range_drag_angle = result.y_events[0][0][0]
-	print(f"{angle_degrees} deg: bez oporu "
+	print(f"{angle_degrees}°: bez oporu "
 		f"{flight_ideal:.3f} s, {height_ideal:.3f} m, {range_ideal_angle:.3f} m; "
 		f"z oporem {flight_drag_angle:.3f} s, "
 		f"{height_drag_angle:.3f} m, {range_drag_angle:.3f} m")
 
-# Osobny przyklad: v0 = 36 m/s, kat = 34 stopnie.
+# Osobny przykład: v0 = 36 m/s, kąt = 34 stopnie.
 extra_v0 = 36.0
 extra_angle = math.radians(34.0)
 extra_vx0 = extra_v0 * math.cos(extra_angle)
@@ -404,7 +443,7 @@ extra_solution = solve_ivp(
 	rtol=1e-9,
 	atol=1e-11,
 )
-print(f"Przyklad 36 m/s, 34 deg: vx0 = {extra_vx0:.2f} m/s, "
+print(f"Przykład 36 m/s, 34°: vx0 = {extra_vx0:.2f} m/s, "
 	f"vy0 = {extra_vy0:.2f} m/s")
 print(f"Bez oporu: {extra_flight_ideal:.3f} s, "
 	f"{extra_height_ideal:.3f} m, {extra_range_ideal:.3f} m")
@@ -413,27 +452,43 @@ print(f"Z oporem: {extra_solution.t_events[0][0]:.3f} s, "
 	f"{extra_solution.y_events[0][0][0]:.3f} m")
 ```
 
-Sprawdzeniem poprawności jest zgodność wydrukowanych wielkości z tabelą z dokładnością wynikającą z zaokrąglenia. Przy zmianie masy, rozmiaru lub współczynnika $C_d$ trzeba ponownie rozwiązać równania; wyniki dla modelu z oporem nie skalują się tak prosto jak w próżni.
+Poprawność obliczeń można sprawdzić, porównując wydrukowane wartości z danymi w tabeli z uwzględnieniem zaokrągleń. Po zmianie masy, rozmiaru piłki lub współczynnika $C_d$ należy ponownie rozwiązać równania. W modelu z oporem wyniki nie skalują się tak prosto jak w modelu bez oporu.
 
 ## 6. Ograniczenia modelu
 
 - Przyjęto stałą gęstość powietrza oraz stały współczynnik $C_d$.
-- Pominięto wiatr, rotację piłki i siłę Magnusa, która może odchylać tor wirującego obiektu.
+- Pominięto wiatr, rotację piłki oraz związane z nią efekty aerodynamiczne, w tym siłę Magnusa, która może odchylać tor.
 - Przyjęto, że piłka jest kulą o stałym promieniu, a jej pole czołowe nie zmienia się w czasie.
 - Model oporu kwadratowego jest przybliżeniem; rzeczywisty $C_d$ zależy od warunków przepływu.
-- Ruch nad płaskim podłożem opisano w dwuwymiarowym układzie współrzędnych.
+- Ruch nad poziomą płaszczyzną lądowania opisano w dwuwymiarowym układzie współrzędnych.
 
 Wyniki należy więc interpretować jako porównanie dwóch modeli fizycznych dla ustalonych parametrów, a nie precyzyjną prognozę konkretnego rzutu.
 
 ## 7. Wnioski
 
-1. Bez oporu powietrza ruch poziomy jest jednostajny, ruch pionowy jednostajnie przyspieszony, a tor stanowi parabolę.
-2. Opór kwadratowy zależy od wektora prędkości. Zmienia obie składowe ruchu i powoduje, że analityczne wzory na parabolę nie mają zastosowania.
-3. Dla przyjętej piłki i warunków początkowych zasięg modelowy spada z około $164{,}59\,\mathrm{m}$ do $85{,}60\,\mathrm{m}$.
-4. Równania z oporem można rozwiązać numerycznie, a jakość obliczeń sprawdzić przez zmniejszanie kroku całkowania i tolerancji solvera.
-5. Każdy wynik symulacji należy opisywać razem z założeniami modelu i parametrami, które go wyznaczają.
+W modelu bez oporu składowa pozioma prędkości jest stała, a pionowa zmienia się pod wpływem grawitacji. Po wyeliminowaniu czasu zależność wysokości od odległości poziomej jest kwadratowa, dlatego tor ma kształt paraboli. Gdy miejsce lądowania znajduje się na tej samej wysokości co miejsce wyrzutu, największy zasięg w tym modelu występuje dla kąta $45^\circ$.
+
+Przy uwzględnieniu oporu kwadratowego siła działa przeciwnie do wektora prędkości, więc zmienia jednocześnie jej składową poziomą i pionową. Tor przestaje być parabolą, a energia mechaniczna maleje. Dla przyjętych parametrów i kąta $45^\circ$ czas lotu skraca się z $5{,}819\,\mathrm{s}$ do $4{,}782\,\mathrm{s}$, maksymalna wysokość spada z $42{,}275\,\mathrm{m}$ do $28{,}960\,\mathrm{m}$, a zasięg z $164{,}585\,\mathrm{m}$ do $85{,}603\,\mathrm{m}$. Oznacza to zmniejszenie tych wielkości odpowiednio o około $18\%$, $31\%$ i $48\%$.
+
+Porównanie kątów $30^\circ$, $45^\circ$ i $60^\circ$ wskazuje, że w badanym przykładzie największy zasięg uzyskano dla $45^\circ$ zarówno bez oporu, jak i z oporem. Nie jest to jednak dowód, że ten kąt zawsze zapewnia największy zasięg: wynik zależy między innymi od wysokości wyrzutu, szybkości początkowej i parametrów oporu. Wartości z symulacji należy zatem traktować jako wyniki przyjętego modelu, a nie uniwersalne dane dla każdej piłki i sytuacji.
+
+Równania ruchu z oporem rozwiązano numerycznie, a dołączony kod pozwala odtworzyć obliczenia i wykresy. Wiarygodność rozwiązania numerycznego można dodatkowo ocenić, powtarzając obliczenia z mniejszym maksymalnym krokiem całkowania i mniejszymi tolerancjami algorytmu. Niezależnie od dokładności obliczeń zgodność wyników z rzeczywistym lotem ograniczają założenia modelu, takie jak stała gęstość powietrza i stały współczynnik oporu.
+
+### Lista kontrolna raportu
+
+<ul style="list-style: none; padding-left: 0;">
+  <li><input type="checkbox" checked disabled> Zdefiniowano układ współrzędnych, symbole, jednostki i założenia modelu.</li>
+  <li><input type="checkbox" checked disabled> Przedstawiono równania ruchu bez oporu oraz z oporem powietrza.</li>
+  <li><input type="checkbox" checked disabled> Porównano czas lotu, maksymalną wysokość i zasięg dla kilku kątów wyrzutu.</li>
+  <li><input type="checkbox" checked disabled> Dołączono wykresy i schematy ilustrujące ruch oraz działające siły.</li>
+  <li><input type="checkbox" checked disabled> Podano kod umożliwiający odtworzenie obliczeń i wykresów.</li>
+  <li><input type="checkbox" checked disabled> Zestawiono ograniczenia modelu i wskazano źródła do dalszej lektury.</li>
+  <li><input type="checkbox" disabled> Raport przeczytany przez czytelnika.</li>
+</ul>
 
 ## 8. Dalsza lektura
 
 - [OpenStax: Projectile Motion](https://openstax.org/books/university-physics-volume-1/pages/4-3-projectile-motion) — ruch pocisku bez oporu powietrza.
 - [NASA Glenn: The Drag Equation](https://www1.grc.nasa.gov/beginners-guide-to-aeronautics/drag-equation/) — równanie siły oporu i znaczenie jego parametrów.
+
+</div>
