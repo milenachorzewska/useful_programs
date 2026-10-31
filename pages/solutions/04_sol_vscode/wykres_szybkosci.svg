@@ -1,6 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="900" height="550" viewBox="0 0 900 550" role="img" aria-labelledby="title desc">
   <title id="title">Szybkość piłki w czasie</title>
   <desc id="desc">Wykres szybkości piłki w funkcji czasu, bez oporu powietrza i z oporem kwadratowym. W modelu bez oporu szybkość maleje do wierzchołka toru, a następnie rośnie.</desc>
+  <rect width="100%" height="100%" fill="#ffffff"/>
   <defs>
     <marker id="axisArrow" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#000000"/></marker>
   </defs>

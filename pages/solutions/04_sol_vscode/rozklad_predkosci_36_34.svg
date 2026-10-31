@@ -1,6 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="900" height="470" viewBox="0 0 900 470" role="img" aria-labelledby="title desc">
   <title id="title">Rozkład wektora prędkości dla 36 m/s i 34 stopni</title>
   <desc id="desc">Wektor prędkości o wartości 36 metrów na sekundę rozłożony na składową poziomą o wartości 29,85 metra na sekundę oraz składową pionową o wartości 20,13 metra na sekundę.</desc>
+  <rect width="100%" height="100%" fill="#ffffff"/>
   <defs>
     <marker id="axisArrow" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#000000"/></marker>
     <marker id="blueArrow" markerUnits="userSpaceOnUse" markerWidth="14" markerHeight="14" refX="12" refY="7" orient="auto"><path d="M0 0L14 7L0 14Z" fill="#2563eb"/></marker>

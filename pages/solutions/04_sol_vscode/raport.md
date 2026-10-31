@@ -79,7 +79,7 @@ Po skróceniu przez masę otrzymujemy stałe przyspieszenia $a_x=0$ i $a_y=-g$. 
 
 $$
 \begin{aligned}
-x(t) &= v_0\cos\theta\,t,\\[8pt]
+x(t) &= v_0\cos\theta\,t,\\
 y(t) &= y_0+v_0\sin\theta\,t-\frac{1}{2}gt^2.
 \end{aligned}\tag{3}
 $$
@@ -88,7 +88,7 @@ Prędkość w każdej chwili wynosi:
 
 $$
 \begin{aligned}
-v_x(t) &= v_0\cos\theta,\\[8pt]
+v_x(t) &= v_0\cos\theta,\\
 v_y(t) &= v_0\sin\theta-gt.
 \end{aligned}\tag{4}
 $$
@@ -109,8 +109,8 @@ Jest to parabola. W najwyższym punkcie $v_y=0$, zatem:
 
 $$
 \begin{aligned}
-t_{\mathrm{w}} &= \frac{v_0\sin\theta}{g},\\[8pt]
-x_{\mathrm{w}} &= \frac{v_0^2\sin(2\theta)}{2g},\\[8pt]
+t_{\mathrm{w}} &= \frac{v_0\sin\theta}{g},\\
+x_{\mathrm{w}} &= \frac{v_0^2\sin(2\theta)}{2g},\\
 y_{\max} &= y_0+\frac{v_0^2\sin^2\theta}{2g}.
 \end{aligned}\tag{6}
 $$
@@ -156,10 +156,10 @@ Współczynnik $C_d$ zależy między innymi od kształtu ciała i liczby Reynold
 
 $$
 \begin{aligned}
-\dot{x} &= v_x,\\[8pt]
-\dot{y} &= v_y,\\[8pt]
-\dot{v}_x &= -\frac{k}{m}v v_x,\\[8pt]
-\dot{v}_y &= -g-\frac{k}{m}v v_y,\\[8pt]
+\dot{x} &= v_x,\\
+\dot{y} &= v_y,\\
+\dot{v}_x &= -\frac{k}{m}v v_x,\\
+\dot{v}_y &= -g-\frac{k}{m}v v_y,\\
 v &= \sqrt{v_x^2+v_y^2}.
 \end{aligned}\tag{10}
 $$
@@ -186,8 +186,8 @@ Przy pionowym spadaniu z oporem kwadratowym prędkość graniczną wyznaczamy, r
 
 $$
 \begin{aligned}
-mg &= kv_{\mathrm{gr}}^2,\\[8pt]
-v_{\mathrm{gr}} &= \sqrt{\frac{mg}{k}},\\[8pt]
+mg &= kv_{\mathrm{gr}}^2,\\
+v_{\mathrm{gr}} &= \sqrt{\frac{mg}{k}},\\
 v_{\mathrm{gr}} &= \sqrt{\frac{2mg}{\rho C_d A}}.
 \end{aligned}\tag{12}
 $$
@@ -243,7 +243,7 @@ W tym dodatkowym przykładzie zachowujemy parametry piłki i powietrza oraz wyso
 
 $$
 \begin{aligned}
-v_{x0} &= 36\cos(34^\circ) \approx 29{,}85\,\mathrm{m/s},\\[8pt]
+v_{x0} &= 36\cos(34^\circ) \approx 29{,}85\,\mathrm{m/s},\\
 v_{y0} &= 36\sin(34^\circ) \approx 20{,}13\,\mathrm{m/s}.
 \end{aligned}\tag{13}
 $$

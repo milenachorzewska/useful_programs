@@ -1,6 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="900" height="430" viewBox="0 0 900 430" role="img" aria-labelledby="title desc">
   <title id="title">Warunki początkowe rzutu ukośnego</title>
   <desc id="desc">Piłka startuje z wysokości y zero; prędkość v zero rozkłada się na składowe poziomą i pionową.</desc>
+  <rect width="100%" height="100%" fill="#ffffff"/>
   <defs>
     <marker id="axisArrow" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#000000"/></marker>
     <marker id="arrow" markerUnits="userSpaceOnUse" markerWidth="16" markerHeight="16" refX="14" refY="8" orient="auto"><path d="M0 0L16 8L0 16Z" fill="#2563eb"/></marker>

@@ -1,6 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="900" height="370" viewBox="0 0 900 370" role="img" aria-labelledby="title desc">
   <title id="title">Schemat obliczeń rzutu ukośnego</title>
   <desc id="desc">Parametry początkowe służą do wyznaczenia równań ruchu, rozwiązania numerycznego, chwili lądowania i wykresów.</desc>
+  <rect width="100%" height="100%" fill="#ffffff"/>
   <defs>
     <marker id="arrow" markerUnits="userSpaceOnUse" markerWidth="16" markerHeight="16" refX="14" refY="8" orient="auto"><path d="M0 0L16 8L0 16Z" fill="#2563eb"/></marker>
     <marker id="arrowYellow" markerUnits="userSpaceOnUse" markerWidth="16" markerHeight="16" refX="14" refY="8" orient="auto"><path d="M0 0L16 8L0 16Z" fill="#eab308"/></marker>
