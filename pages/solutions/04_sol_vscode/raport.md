@@ -235,17 +235,17 @@ Wartości dla modelu bez oporu obliczono analitycznie. Równania z oporem rozwi�
 
 Przy kącie $45^\circ$ uwzględnienie oporu zmniejsza zasięg o około $48\%$, maksymalną wysokość o około $31\%$, a czas lotu o około $18\%$. Różnice te wynikają z zależności siły oporu od wartości i kierunku prędkości. Nie można więc poprawnie uwzględnić oporu przez samo zmniejszenie przyspieszenia grawitacyjnego.
 
-### 4.3. Przykład dodatkowy: trzy wykresy dla kąta $45^\circ$
+### 4.3. Wykresy głównego przykładu: $36\thinspace\mathrm{m/s}$ i $34^\circ$
 
-Pierwszy wykres porównuje tory piłki, drugi przedstawia jej wysokość w funkcji czasu, a trzeci — szybkość. Wszystkie wykresy dotyczą tych samych warunków początkowych i modeli co wiersze tabeli dla kąta $45^\circ$.
+Pierwszy wykres porównuje tory piłki, drugi przedstawia jej wysokość w funkcji czasu, a trzeci — szybkość. Wszystkie wykresy dotyczą głównego przykładu z punktu 4.1: szybkości początkowej $36\thinspace\mathrm{m/s}$ i kąta $34^\circ$.
 
-![Tor piłki dla kąta 45 stopni bez oporu powietrza i z oporem kwadratowym](wykres_toru.svg)
+![Tor piłki dla szybkości początkowej 36 metrów na sekundę i kąta 34 stopni bez oporu powietrza i z oporem kwadratowym](wykres_toru.svg)
 
-_Rysunek 5. Tor obliczony dla v₀ = 40 m/s i θ = 45°; opór obniża wierzchołek i zmniejsza zasięg._
+_Rysunek 5. Tor głównego przykładu: $v_0=36\thinspace\mathrm{m/s}$ i $\theta=34^\circ$; opór obniża wierzchołek i zmniejsza zasięg._
 
 ![Wysokość piłki w funkcji czasu dla obu modeli](wykres_wysokosci.svg)
 
-_Rysunek 6. Wysokość w czasie dla tych samych warunków początkowych: v₀ = 40 m/s i θ = 45°._
+_Rysunek 6. Wysokość w czasie dla tych samych warunków początkowych: $v_0=36\thinspace\mathrm{m/s}$ i $\theta=34^\circ$._
 
 ![Szybkość piłki w funkcji czasu dla obu modeli](wykres_szybkosci.svg)
 
@@ -261,7 +261,7 @@ Przy kącie $30^\circ$ piłka osiąga niższą wysokość maksymalną i ma krót
 
 ## 5. Kod i odtwarzanie wyników
 
-Kod wykorzystuje biblioteki NumPy, SciPy i Matplotlib. Odtwarza wyniki z punktów 4.1–4.3 i generuje cztery ilustracje SVG osadzone w punkcie 4: rozkład prędkości dla $36\thinspace\mathrm{m/s}$ i $34^\circ$ oraz trzy wykresy dla $40\thinspace\mathrm{m/s}$ i $45^\circ$. Dane do krzywych pochodzą bezpośrednio z rozwiązań równań ruchu.
+Kod wykorzystuje biblioteki NumPy, SciPy i Matplotlib. Odtwarza wyniki z punktów 4.1–4.3 i generuje cztery ilustracje SVG osadzone w punkcie 4: rozkład prędkości oraz trzy wykresy dla głównego przykładu, czyli $36\thinspace\mathrm{m/s}$ i $34^\circ$. Dodatkowo wypisuje porównanie dla kątów z tabeli 4.2, obliczone dla $40\thinspace\mathrm{m/s}$. Dane do krzywych pochodzą bezpośrednio z rozwiązań równań ruchu.
 
 ### 5.1. Uruchomienie w Google Colabie
 
@@ -301,8 +301,9 @@ m = 0.145
 radius = 0.0366
 rho = 1.225
 Cd = 0.47
-v0 = 40.0
-angle = math.radians(45.0)
+v0 = 36.0
+angle = math.radians(34.0)
+comparison_v0 = 40.0
 y0 = 1.5
 area = math.pi * radius**2
 k = 0.5 * rho * Cd * area
@@ -361,7 +362,7 @@ plt.plot(x_drag, y_drag, label="Z oporem kwadratowym", linewidth=2.4)
 plt.scatter([0, range_ideal, range_drag], [y0, 0, 0], s=35, zorder=3)
 plt.xlabel("Odległość pozioma x [m]")
 plt.ylabel("Wysokość y [m]")
-plt.title("Tor piłki: v₀ = 40 m/s, kąt = 45°")
+plt.title(f"Tor piłki: v₀ = {v0:g} m/s, kąt = {math.degrees(angle):g}°")
 plt.grid(alpha=0.25)
 plt.legend()
 plt.tight_layout()
@@ -373,7 +374,7 @@ plt.plot(t_ideal, y_ideal, label="Bez oporu", linewidth=2.4)
 plt.plot(t_drag, y_drag, label="Z oporem kwadratowym", linewidth=2.4)
 plt.xlabel("Czas t [s]")
 plt.ylabel("Wysokość y [m]")
-plt.title("Wysokość w czasie: v₀ = 40 m/s, kąt = 45°")
+plt.title(f"Wysokość w czasie: v₀ = {v0:g} m/s, kąt = {math.degrees(angle):g}°")
 plt.grid(alpha=0.25)
 plt.legend()
 plt.tight_layout()
@@ -387,17 +388,17 @@ plt.plot(t_ideal, speed_ideal, label="Bez oporu", linewidth=2.4)
 plt.plot(t_drag, speed_drag, label="Z oporem kwadratowym", linewidth=2.4)
 plt.xlabel("Czas t [s]")
 plt.ylabel("Szybkość v [m/s]")
-plt.title("Szybkość w czasie: v₀ = 40 m/s, kąt = 45°")
+plt.title(f"Szybkość w czasie: v₀ = {v0:g} m/s, kąt = {math.degrees(angle):g}°")
 plt.grid(alpha=0.25)
 plt.legend()
 plt.tight_layout()
 zapisz_wykres("wykres_szybkosci")
 
-# Tabela porównawcza dla trzech kątów wyrzutu.
+# Tabela porównawcza dla trzech kątów wyrzutu przy szybkości 40 m/s.
 for angle_degrees in (30, 45, 60):
 	angle_value = math.radians(angle_degrees)
-	initial_vx = v0 * math.cos(angle_value)
-	initial_vy = v0 * math.sin(angle_value)
+	initial_vx = comparison_v0 * math.cos(angle_value)
+	initial_vy = comparison_v0 * math.sin(angle_value)
 	flight_ideal = (initial_vy + math.sqrt(initial_vy**2 + 2 * g * y0)) / g
 	height_ideal = y0 + initial_vy**2 / (2 * g)
 	range_ideal_angle = initial_vx * flight_ideal
@@ -418,65 +419,38 @@ for angle_degrees in (30, 45, 60):
 		f"z oporem {flight_drag_angle:.3f} s, "
 		f"{height_drag_angle:.3f} m, {range_drag_angle:.3f} m")
 
-# Osobny przykład: v0 = 36 m/s, kąt = 34 stopnie.
-extra_v0 = 36.0
-extra_angle = math.radians(34.0)
-extra_vx0 = extra_v0 * math.cos(extra_angle)
-extra_vy0 = extra_v0 * math.sin(extra_angle)
-extra_flight_ideal = (
-	extra_vy0 + math.sqrt(extra_vy0**2 + 2 * g * y0)
-) / g
-extra_height_ideal = y0 + extra_vy0**2 / (2 * g)
-extra_range_ideal = extra_vx0 * extra_flight_ideal
-extra_solution = solve_ivp(
-	equations,
-	(0, 20),
-	(0, y0, extra_vx0, extra_vy0),
-	events=landing,
-	max_step=0.0005,
-	rtol=1e-9,
-	atol=1e-11,
-)
-print(f"Przykład 36 m/s, 34°: vx0 = {extra_vx0:.2f} m/s, "
-	f"vy0 = {extra_vy0:.2f} m/s")
-print(f"Bez oporu: {extra_flight_ideal:.3f} s, "
-	f"{extra_height_ideal:.3f} m, {extra_range_ideal:.3f} m")
-print(f"Z oporem: {extra_solution.t_events[0][0]:.3f} s, "
-	f"{np.max(extra_solution.y[1]):.3f} m, "
-	f"{extra_solution.y_events[0][0][0]:.3f} m")
-
-# Rysunek z punktu 4.1: wektor i jego składowe dla 36 m/s oraz 34°.
+# Rysunek z punktu 4.1: wektor i jego składowe.
 plt.figure(figsize=(8, 5))
 plt.annotate(
 	"",
-	xy=(extra_vx0, extra_vy0),
+	xy=(vx0, vy0),
 	xytext=(0, 0),
 	arrowprops={"arrowstyle": "->", "color": "#2563eb", "linewidth": 2.8},
 )
 plt.annotate(
 	"",
-	xy=(extra_vx0, 0),
+	xy=(vx0, 0),
 	xytext=(0, 0),
 	arrowprops={"arrowstyle": "->", "color": "#dc2626", "linewidth": 2.4},
 )
 plt.annotate(
 	"",
-	xy=(extra_vx0, extra_vy0),
-	xytext=(extra_vx0, 0),
+	xy=(vx0, vy0),
+	xytext=(vx0, 0),
 	arrowprops={"arrowstyle": "->", "color": "#eab308", "linewidth": 2.4},
 )
-plt.text(extra_vx0 * 0.34, extra_vy0 * 0.66, "v₀ = 36 m/s")
-plt.text(extra_vx0 * 0.36, -2.0, f"vₓ₀ = {extra_vx0:.2f} m/s")
+plt.text(vx0 * 0.34, vy0 * 0.66, f"v₀ = {v0:g} m/s")
+plt.text(vx0 * 0.36, -2.0, f"vₓ₀ = {vx0:.2f} m/s")
 plt.text(
-	extra_vx0 - 1.0,
-	extra_vy0 * 0.55,
-	f"vᵧ₀ = {extra_vy0:.2f} m/s",
+	vx0 - 1.0,
+	vy0 * 0.55,
+	f"vᵧ₀ = {vy0:.2f} m/s",
 	ha="right",
 )
-plt.text(extra_vx0 * 0.18, extra_vy0 * 0.08, "34°")
+plt.text(vx0 * 0.18, vy0 * 0.08, f"{math.degrees(angle):g}°")
 plt.xlabel("Składowa pozioma prędkości [m/s]")
 plt.ylabel("Składowa pionowa prędkości [m/s]")
-plt.title("Rozkład prędkości początkowej: 36 m/s, 34°")
+plt.title(f"Rozkład prędkości początkowej: {v0:g} m/s, {math.degrees(angle):g}°")
 plt.xlim(-2, 40)
 plt.ylim(-4, 26)
 plt.gca().set_aspect("equal", adjustable="box")
@@ -485,7 +459,7 @@ plt.tight_layout()
 zapisz_wykres("rozklad_predkosci_36_34")
 ```
 
-Kod zapisuje trzy wykresy dla parametrów z tabeli w punkcie 4.2 (wiersz $45^\circ$) oraz rysunek rozkładu prędkości zgodny z parametrami i tabelą w punkcie 4.1. Poprawność obliczeń można sprawdzić, porównując wydrukowane wartości z tabelami z uwzględnieniem zaokrągleń. Po zmianie masy, rozmiaru piłki lub współczynnika $C_d$ należy ponownie rozwiązać równania. W modelu z oporem wyniki nie skalują się tak prosto jak w modelu bez oporu.
+Kod zapisuje trzy wykresy i rysunek rozkładu prędkości zgodne z głównym przykładem z punktu 4.1. Wydrukowane wartości dla głównego przykładu można porównać z tabelą 4.1, a porównanie kątów — z tabelą 4.2, z uwzględnieniem zaokrągleń. Po zmianie masy, rozmiaru piłki lub współczynnika $C_d$ należy ponownie rozwiązać równania. W modelu z oporem wyniki nie skalują się tak prosto jak w modelu bez oporu.
 
 ## 6. Ograniczenia modelu
 
